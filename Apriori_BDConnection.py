@@ -23,7 +23,15 @@ def checkNumberOfRows():
 
     cursor.execute("SELECT COUNT(*) FROM rental")
     numberOfRows = cursor.fetchone()
-    print numberOfRows
+
+    novoNR = int(numberOfRows)
+
+    print novoNR
+
+
+
+
+
 
 
 checkNumberOfRows()
