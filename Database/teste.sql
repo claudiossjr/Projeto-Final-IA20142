@@ -57,16 +57,6 @@ CREATE TABLE `Compra` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Compra`
---
-
-LOCK TABLES `Compra` WRITE;
-/*!40000 ALTER TABLE `Compra` DISABLE KEYS */;
-INSERT INTO `Compra` VALUES (1,1),(6,1),(11,1),(13,1),(15,1),(1,2),(2,2),(4,2),(7,2),(8,2),(12,2),(1,3),(3,3),(5,3),(10,3),(11,3),(1,4),(3,4),(4,4),(5,4),(6,4),(9,4),(15,4),(18,4),(1,5),(3,5),(4,5),(10,5),(16,5),(18,5),(1,6),(6,6),(11,6),(13,6),(14,6),(1,7),(2,7),(4,7),(12,7),(14,7),(11,8);
-/*!40000 ALTER TABLE `Compra` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Produtos`
 --
 
@@ -90,6 +80,16 @@ INSERT INTO `Produtos` VALUES (1,'Sabão'),(2,'Papel'),(3,'Maça'),(4,'Agua'),(5
 /*!40000 ALTER TABLE `Produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
+-- Dumping data for table `Compra`
+--
+
+LOCK TABLES `Compra` WRITE;
+/*!40000 ALTER TABLE `Compra` DISABLE KEYS */;
+INSERT INTO `Compra` VALUES (1,1),(6,1),(11,1),(13,1),(15,1),(1,2),(2,2),(4,2),(7,2),(8,2),(12,2),(1,3),(3,3),(5,3),(10,3),(11,3),(1,4),(3,4),(4,4),(5,4),(6,4),(9,4),(15,4),(18,4),(1,5),(3,5),(4,5),(10,5),(16,5),(18,5),(1,6),(6,6),(11,6),(13,6),(14,6),(1,7),(2,7),(4,7),(12,7),(14,7),(11,8);
+/*!40000 ALTER TABLE `Compra` ENABLE KEYS */;
+UNLOCK TABLES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
