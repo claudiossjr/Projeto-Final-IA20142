@@ -87,7 +87,7 @@ CREATE TABLE `Produtos` (
 
 LOCK TABLES `Produtos` WRITE;
 /*!40000 ALTER TABLE `Produtos` DISABLE KEYS */;
-INSERT INTO `Produtos` VALUES (1,'Sabão'),(2,'Papel'),(3,'Maça'),(4,'Agua'),(5,'Cerveja'),(6,'Banana'),(7,'Arroz'),(8,'Feijao'),(9,'Farinha'),(10,'Abacate'),(11,'Biscoito'),(12,'Geleia'),(13,'Coca-cola'),(14,'Cerveja'),(15,'Água'),(16,'Café'),(17,'Cebola'),(18,'Tomate');
+INSERT INTO `Produtos` VALUES (1,'Sabão'),(2,'Papel'),(3,'Maça'),(4,'Água com gás'),(5,'Cerveja Zero'),(6,'Banana'),(7,'Arroz'),(8,'Feijao'),(9,'Farinha'),(10,'Abacate'),(11,'Biscoito'),(12,'Geleia'),(13,'Coca-cola'),(14,'Cerveja'),(15,'Água'),(16,'Café'),(17,'Cebola'),(18,'Tomate');
 /*!40000 ALTER TABLE `Produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -100,4 +100,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-22 12:20:36
+-- Dump completed on 2014-11-22 12:35:03
