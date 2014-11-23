@@ -18,7 +18,7 @@ def makeJoins(lista):
 
 def join(elem,elem1) :
     listTemp = list()
-
+    tam = len(elem) - 1
     for i in range(0,len(elem)) :
         print elem[i]
         listTemp.append(elem[i])
@@ -26,7 +26,7 @@ def join(elem,elem1) :
     achou_comum = False
 
     aux = list()
-
+    countEqual = 0
     for i in range(0,len(elem1)) :
         print elem1[i]
         if not hasElemIn(elem1[i],elem):
@@ -34,9 +34,10 @@ def join(elem,elem1) :
             print aux
         else :
             achou_comum = True
+            countEqual = countEqual + 1
             print "Entrou aqui"
 
-    if achou_comum:
+    if achou_comum and countEqual >= tam:
         print "Entrou aqui"
         for item in aux:
             listTemp.append(item)
@@ -62,6 +63,6 @@ def same(item,aux):
             return False
     return True
 
-C1 = makeJoins([[1,2],[1,3],[5,4],[2,3]])
+C1 = makeJoins([[1,2,3],[1,4,3],[2,4,5],[5,2,3]])
 
 print(C1)
