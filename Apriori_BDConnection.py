@@ -4,11 +4,12 @@ __author__ = 'joaolucas'
 
 
 import MySQLdb
+import ast
 from JoinFile1 import Util
 util = Util()
 
 numberOfTransactions = 0
-suport = 0.4
+suport = 0.3
 transactions = -1
 cursor = -1
 
@@ -18,13 +19,13 @@ def dbConnection():
 
     global cursor
 
-    print "Insert hostname"
+    #print "Insert hostname"
     host = "localhost"#raw_input()
-    print "Insert Username"
+    #print "Insert Username"
     username = "joao" #raw_input()
-    print "Insert your password"
+    #print "Insert your password"
     password = "1234" #raw_input()
-    print "Insert Database"
+    #print "Insert Database"
     database = "teste" #raw_input()
 
     db = MySQLdb.connect(host, username, password, database)
@@ -51,6 +52,7 @@ def checkTransactions():
 
 
     # print de cada transacao
+    print "TRANSACTIONS"
     for item in transactions:
         print item
 
@@ -70,10 +72,11 @@ def buildC1():
             if not C1.has_key(product): C1[product] = 1
             else: C1[product] += 1
 
-
+    '''
     # print do C1. {idProduto, Quantidade}
     for item in C1:
         print " Item: %s Quantidade %s " % (item ,C1[item])
+    '''
 
     L1 = {}
 
@@ -103,20 +106,56 @@ def buildC1():
 
 def buildLK(LK):
 
-    global transactions
+
+
+    global transactions,cursor
 
     CK = util.makeJoins(LK)
 
     CK = map(set, CK)
 
-    LK = []
+    LK = {}
 
-    LKSUPORT = []
+
+
+
+    for itemset in CK:
+        aux = map(list,[itemset])
+        aux = str(aux)
+        temp = ast.literal_eval(aux)
+        LK[str(temp[0])] = 0
 
 
     for itemset in CK:
         for transaction in transactions:
             if itemset.issubset(transaction):
+                temp = map(list,[itemset])
+                LK[str(temp[0])] +=1
+
+
+    LKFINAL = []
+
+    for item in LK:
+        if (float(LK[item])/float(len(transactions))) > suport:
+
+            temp = ast.literal_eval(item)
+
+            print "[%s]  ------->   Suporte: %s " %(nameGenerator(temp), (float(LK[item])/float(len(transactions))))
+
+            LKFINAL.append(temp)
+
+    return LKFINAL
+
+
+def nameGenerator(itemset):
+
+
+        fim = ""
+        for product in itemset:
+            sql = cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(product))
+            temp = cursor.fetchone()
+            fim = fim +" "+temp[0]
+        return fim
 
 
 
@@ -129,7 +168,10 @@ def apriori():
 
     LK = buildC1()
 
-    buildLK(LK)
+    while len(LK) > 1:
+        LK = buildLK(LK)
+
+
 
 
 apriori()
