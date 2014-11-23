@@ -18,32 +18,43 @@ def makeJoins(lista):
 
 def join(elem,elem1) :
     listTemp = list()
-    tam = len(elem) - 1
-    for i in range(0,len(elem)) :
-        print elem[i]
-        listTemp.append(elem[i])
+    if len(elem) != 1:
+        tam = len(elem) - 1
+        print "Tamanho %d", len(elem)
+        for i in range(0,len(elem)) :
+            print elem[i]
+            listTemp.append(elem[i])
 
-    achou_comum = False
+        achou_comum = False
 
-    aux = list()
-    countEqual = 0
-    for i in range(0,len(elem1)) :
-        print elem1[i]
-        if not hasElemIn(elem1[i],elem):
-            aux.append(elem1[i])
-            print aux
-        else :
-            achou_comum = True
-            countEqual = countEqual + 1
+        aux = list()
+        countEqual = 0
+        for i in range(0,len(elem1)) :
+            print elem1[i]
+            if not hasElemIn(elem1[i],elem):
+                aux.append(elem1[i])
+                print aux
+            else :
+                achou_comum = True
+                countEqual = countEqual + 1
+                print "Entrou aqui"
+
+        if achou_comum and countEqual >= tam:
             print "Entrou aqui"
-
-    if achou_comum and countEqual >= tam:
-        print "Entrou aqui"
-        for item in aux:
+            for item in aux:
+                listTemp.append(item)
+                listTemp.sort()
+            print listTemp
+            return listTemp
+    else :
+        for item in elem:
             listTemp.append(item)
-            listTemp.sort()
-        print listTemp
-        return listTemp
+        for item in elem1:
+            listTemp.append(item)
+        listTemp.sort()
+        if elem != elem1:
+            return listTemp
+
     return 0
 
 def hasElemIn(elemento,lista):
@@ -64,9 +75,22 @@ def same(item,aux):
             return False
     return True
 
-C1 = makeJoins([["Agua","Pao","Sorvete","Abacaxi"],
-                ["Agua","Suco","Cerveja,Pao"],
-                ["Pao","Suco","Cerveja,Geleia"],
-                ["Agua","Pao","Cerveja","Abacaxi"]])
+C1 = makeJoins([["Agua"],
+                ["Pao"],
+                ["Cerveja"],
+                ["Cebola"],
+                ["Maca"]])
+
+C2 = makeJoins(C1)
+
+C3 = makeJoins(C2)
+
+C4 = makeJoins(C3)
 
 print(C1)
+
+print(C2)
+
+print(C3)
+
+print(C4)
