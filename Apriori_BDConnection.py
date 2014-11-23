@@ -49,11 +49,11 @@ def checkTransactions():
     for tuple in auxtransactions:
        transactions[int(tuple[1])-1].append(int(tuple[0]))
 
-    '''
+
     # print de cada transacao
     for item in transactions:
         print item
-    '''
+
 
     transactions = map(set, transactions)
 
@@ -101,6 +101,25 @@ def buildC1():
 
 
 
+def buildLK(LK):
+
+    global transactions
+
+    CK = util.makeJoins(LK)
+
+    CK = map(set, CK)
+
+    LK = []
+
+    LKSUPORT = []
+
+
+    for itemset in CK:
+        for transaction in transactions:
+            if itemset.issubset(transaction):
+
+
+
 def apriori():
 
     global transactions
@@ -108,12 +127,9 @@ def apriori():
     dbConnection()
     checkTransactions()
 
-    L1 = buildC1()
+    LK = buildC1()
 
-
-    LK = util.makeJoins(L1)
-
-
+    buildLK(LK)
 
 
 apriori()
