@@ -4,11 +4,20 @@ __author__ = 'joaolucas'
 
 
 import MySQLdb
+from JoinFile1 import Util
+util = Util()
 
-numberOfRows = 0
+numberOfTransactions = 0
 suport = 0.4
+transactions = -1
+cursor = -1
 
 def dbConnection():
+
+    #connect to DB
+
+    global cursor
+
     print "Insert hostname"
     host = "localhost"#raw_input()
     print "Insert Username"
@@ -20,32 +29,41 @@ def dbConnection():
 
     db = MySQLdb.connect(host, username, password, database)
     cursor = db.cursor()
-    checkTransactions(cursor)
 
 
-def checkTransactions(cursor):
+def checkTransactions():
+
+    #check transactions made for each client
+
+    global cursor
+    global transactions
 
     cursor.execute("SELECT COUNT(DISTINCT idCliente) FROM Compra")
     numberOfTransactions = int(cursor.fetchone()[0])
 
-    transactions = [[] for i in range(numberOfTransactions+1)]
+    transactions = [[] for i in range(numberOfTransactions)]
 
     cursor.execute("SELECT * FROM Compra")
     auxtransactions = cursor.fetchall()
 
     for tuple in auxtransactions:
-       transactions[int(tuple[1])].append(int(tuple[0]))
+       transactions[int(tuple[1])-1].append(int(tuple[0]))
 
+    '''
     # print de cada transacao
     for item in transactions:
         print item
+    '''
+
+    transactions = map(set, transactions)
 
 
-    buildC1(transactions, cursor)
+def buildC1():
 
-def buildC1(transactions, cursor):
+    global transactions
 
     C1 = {}
+
 
     for ID in transactions:
         for product in ID:
@@ -62,53 +80,40 @@ def buildC1(transactions, cursor):
     for item in C1:
         if (float(C1[item]) / float(len(transactions))) > suport:
             L1[item] = C1[item]
-            cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" % (item) )
+
+
+            cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
             productName = cursor.fetchall()
 
-            for aux in productName:
-                print "%s -----> Suporte: %s " % (aux[0], float(C1[item]) / float(len(transactions)))
 
-    joinOperation(L1,transactions)
-
-def joinOperation(L1,transactions):
-
-    LK = {}
-
-    auxList = L1.keys()
-    newListofTuples = list();
-
-    for i in range(0, len(auxList)):
-        for j in range(i+1, len(auxList)):
-            newListofTuples.append([auxList[i],auxList[j]])
-
-    for item in newListofTuples:
-        print item
-
-    print "___________________"
-    print newListofTuples [0][0]
-    print newListofTuples [0][1]
-    print newListofTuples [1][0]
-    print newListofTuples [1][1]
-    print newListofTuples [2][0]
-    print newListofTuples [2][1]
-
-    saveRules(len(newListofTuples[0]))
-
-def saveRules(K):
-
-    sql = "CREATE TABLE L%s (id INT, element INT)" %(K)
-
-    print sql
+            print "%s -----> Suporte: %s " % (productName[0][0], float(C1[item]) / float(len(transactions)))
 
 
-def checkSubset(transactions, tupleList):
+    L1FINAL = [0 for i in range(len(L1))]
 
-    CK = {}
+
     i = 0
-    for ID in transactions:
-        for item in ID:
-            print ""
-    print tupleList[0][0]
+    for item in L1:
+        L1FINAL[i] = [item]
+        i += 1
+
+    return L1FINAL
 
 
-dbConnection()
+
+def apriori():
+
+    global transactions
+
+    dbConnection()
+    checkTransactions()
+
+    L1 = buildC1()
+
+
+    LK = util.makeJoins(L1)
+
+
+
+
+apriori()

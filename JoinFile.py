@@ -1,4 +1,7 @@
 
+#from distlib._backport.shutil import make_archive
+
+
 __author__ = 'claudio'
 
 class Util(object):
@@ -52,11 +55,51 @@ class Util(object):
                     listTemp.sort()
                 #print listTemp
                 return listTemp
-        else :
+        else:
             for item in elem:
                 listTemp.append(item)
             for item in elem1:
                 listTemp.append(item)
+
+            listTemp.sort()
+            #print listTemp
+            return listTemp
+        else:
+        for item in elem:
+            listTemp.append(item)
+        for item in elem1:
+            listTemp.append(item)
+        listTemp.sort()
+        if elem != elem1:
+            return listTemp
+
+    return 0
+
+
+def hasElemIn(elemento,lista):
+    for i in range(0,len(lista)):
+        if elemento == lista[i] :
+            return True
+    return False
+
+def hasInList(Cn,aux) :
+    for item in Cn:
+        if same(item,aux):
+            return True
+    return False
+
+def same(item,aux):
+    for i in range(0,len(item)):
+        if item[i] != aux[i] :
+            return False
+    return True
+
+def printList(lista):
+    for element in lista:
+        print "\t",element
+
+C1 = makeJoins([["Agua"],
+
             listTemp.sort()
             if elem != elem1:
                 return listTemp
@@ -88,6 +131,7 @@ class Util(object):
 util = Util()
 
 C1 = util.makeJoins([["Agua"],
+
                 ["Pao"],
                 ["Cerveja"],
                 ["Cebola"],
@@ -114,6 +158,9 @@ print ""
 util.printList(C3)
 print ""
 
+
 print "With 5"
 print ""
+
 util.printList(C4)
+
