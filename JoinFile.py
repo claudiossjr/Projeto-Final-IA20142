@@ -41,6 +41,7 @@ def join(elem,elem1) :
         print "Entrou aqui"
         for item in aux:
             listTemp.append(item)
+            listTemp.sort()
         print listTemp
         return listTemp
     return 0
@@ -63,6 +64,6 @@ def same(item,aux):
             return False
     return True
 
-C1 = makeJoins([[1,2,3],[1,4,3],[2,4,5],[5,2,3]])
+C1 = makeJoins([[1,2],[1,4],[2,4],[5,2]])
 
 print(C1)
