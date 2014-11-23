@@ -64,6 +64,9 @@ def same(item,aux):
             return False
     return True
 
-C1 = makeJoins([[1,2],[1,4],[2,4],[5,2]])
+C1 = makeJoins([["Agua","Pao","Sorvete","Abacaxi"],
+                ["Agua","Suco","Cerveja,Pao"],
+                ["Pao","Suco","Cerveja,Geleia"],
+                ["Agua","Pao","Cerveja","Abacaxi"]])
 
 print(C1)
