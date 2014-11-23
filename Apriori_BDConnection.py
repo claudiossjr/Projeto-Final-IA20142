@@ -4,6 +4,8 @@ __author__ = 'joaolucas'
 
 
 import MySQLdb
+from JoinFile1 import Util
+util = Util()
 
 numberOfTransactions = 0
 suport = 0.4
@@ -62,6 +64,7 @@ def buildC1():
 
     C1 = {}
 
+
     for ID in transactions:
         for product in ID:
             if not C1.has_key(product): C1[product] = 1
@@ -72,33 +75,30 @@ def buildC1():
     for item in C1:
         print " Item: %s Quantidade %s " % (item ,C1[item])
 
-    LAUX = {}
+    L1 = {}
 
     for item in C1:
         if (float(C1[item]) / float(len(transactions))) > suport:
-            LAUX[item] = C1[item]
-            cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" % (item) )
+            L1[item] = C1[item]
+
+
+            cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
             productName = cursor.fetchall()
 
-            for aux in productName:
-                print "%s -----> Suporte: %s " % (aux[0], float(C1[item]) / float(len(transactions)))
+
+            print "%s -----> Suporte: %s " % (productName[0][0], float(C1[item]) / float(len(transactions)))
 
 
-    L1 = [0 for i in range(len(LAUX))]
+    L1FINAL = [0 for i in range(len(L1))]
 
 
     i = 0
-    for item in LAUX:
-        L1[i] = item
-        i = i+1
+    for item in L1:
+        L1FINAL[i] = [item]
+        i += 1
 
+    return L1FINAL
 
-
-    return L1,LAUX
-
-
-
-    #joinOperation(L1,transactions)
 
 
 def apriori():
@@ -107,33 +107,12 @@ def apriori():
 
     dbConnection()
     checkTransactions()
-    L1,LAUX =buildC1()
 
-    LN = []
-
-    for item in L1:
-        LN.append(set([item]))
+    L1 = buildC1()
 
 
+    LK = util.makeJoins(L1)
 
-
-def buildCk(Ck):
-
-    lk = []
-    ckn = [0 for i in range(len(Ck))]
-
-    global transactions
-
-
-
-
-    for i in range(len(Ck)):
-        for j in range(len(transactions)):
-                if Ck[i].issubset(transactions[j]):
-                    ckn[i] += 1
-
-    for item in ckn:
-        print item
 
 
 
