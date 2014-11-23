@@ -112,18 +112,21 @@ def apriori():
     L1,LAUX =buildC1()
 
     for item in L1:
-        LN = [L1]
+        LN = [item]
 
-    LN = map(set, LN)
+    #LN = map(set, LN)
 
     for item in LN:
+
         print item
 
-def newJoinOperation(L):
+   # newJoinOperation(LN, )
 
-    resultList = []
+#def newJoinOperation(L,k):
 
-    for
+
+
+
 
 
 def joinOperation(LK,transactions):
