@@ -85,6 +85,7 @@ class Util:
         for element in lista:
             print "\t",element
 
+'''
 util = Util()
 
 C1 = util.makeJoins([["Agua"],
@@ -117,3 +118,4 @@ print ""
 print "With 5"
 print ""
 util.printList(C4)
+'''
