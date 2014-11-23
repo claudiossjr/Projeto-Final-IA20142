@@ -111,22 +111,55 @@ def apriori():
     checkTransactions()
     L1,LAUX =buildC1()
 
+    LN = []
+
     for item in L1:
-        LN = [item]
+        LN.append(set([item]))
 
-    #LN = map(set, LN)
 
-    for item in LN:
+    K = 0
+    Ck = newJoinOperation(LN,K)
+    buildCk(Ck)
 
+
+
+
+def buildCk(Ck):
+
+    lk = []
+    ckn = [0 for i in range(len(Ck))]
+
+    global transactions
+
+
+
+
+    for i in range(len(Ck)):
+        for j in range(len(transactions)):
+                if Ck[i].issubset(transactions[j]):
+                    ckn[i] += 1
+
+    for item in ckn:
         print item
 
-   # newJoinOperation(LN, )
-
-#def newJoinOperation(L,k):
 
 
 
 
+
+def newJoinOperation(L,k):
+
+    Ck = []
+
+
+    for i in range(len(L)-1):
+        for j in range(i+1, len(L)):
+            listaux = list(L[i].union(L[j]))
+            Ck.append(listaux)
+
+    Ck = map(set, Ck)
+
+    return Ck
 
 
 def joinOperation(LK,transactions):
