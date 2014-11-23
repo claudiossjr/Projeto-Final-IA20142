@@ -144,6 +144,8 @@ def buildLK(LK):
 
             LKFINAL.append(temp)
 
+
+
     return LKFINAL
 
 
@@ -167,9 +169,14 @@ def apriori():
     checkTransactions()
 
     LK = buildC1()
+    print "!!!!!!!!!!!!!!"
+    print LK
+
 
     while len(LK) > 1:
         LK = buildLK(LK)
+        print "!!!!!!!!!!!"
+        print LK
 
 
 
