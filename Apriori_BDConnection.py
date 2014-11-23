@@ -39,28 +39,26 @@ def checkTransactions():
     cursor.execute("SELECT COUNT(DISTINCT idCliente) FROM Compra")
     numberOfTransactions = int(cursor.fetchone()[0])
 
-    transactions = [[] for i in range(numberOfTransactions+1)]
+    transactions = [[] for i in range(numberOfTransactions)]
 
     cursor.execute("SELECT * FROM Compra")
     auxtransactions = cursor.fetchall()
 
     for tuple in auxtransactions:
-       transactions[int(tuple[1])].append(int(tuple[0]))
+       transactions[int(tuple[1])-1].append(int(tuple[0]))
 
+    '''
     # print de cada transacao
     for item in transactions:
         print item
-
-def buildC1():
-
-    global transactions
-
-
-
+    '''
 
     transactions = map(set, transactions)
 
 
+def buildC1():
+
+    global transactions
 
     C1 = {}
 
@@ -117,11 +115,6 @@ def apriori():
         LN.append(set([item]))
 
 
-    K = 0
-    Ck = newJoinOperation(LN,K)
-    buildCk(Ck)
-
-
 
 
 def buildCk(Ck):
@@ -142,65 +135,6 @@ def buildCk(Ck):
     for item in ckn:
         print item
 
-
-
-
-
-
-def newJoinOperation(L,k):
-
-    Ck = []
-
-
-    for i in range(len(L)-1):
-        for j in range(i+1, len(L)):
-            listaux = list(L[i].union(L[j]))
-            Ck.append(listaux)
-
-    Ck = map(set, Ck)
-
-    return Ck
-
-
-def joinOperation(LK,transactions):
-
-    LK = {}
-
-    auxList = L1.keys()
-    newListofTuples = list();
-
-    for i in range(0, len(auxList)):
-        for j in range(i+1, len(auxList)):
-            newListofTuples.append([auxList[i],auxList[j]])
-
-    for item in newListofTuples:
-        print item
-
-    print "___________________"
-    print newListofTuples [0][0]
-    print newListofTuples [0][1]
-    print newListofTuples [1][0]
-    print newListofTuples [1][1]
-    print newListofTuples [2][0]
-    print newListofTuples [2][1]
-
-    saveRules(len(newListofTuples[0]))
-
-def saveRules(K):
-
-    sql = "CREATE TABLE L%s (id INT, element INT)" %(K)
-
-    print sql
-
-
-def checkSubset(transactions, tupleList):
-
-    CK = {}
-    i = 0
-    for ID in transactions:
-        for item in ID:
-            print ""
-    print tupleList[0][0]
 
 
 apriori()

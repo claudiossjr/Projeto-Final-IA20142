@@ -6,13 +6,13 @@ __author__ = 'claudio'
 
 def makeJoins(lista):
     Cn = list()
-    print lista
+    #print lista
     for i in range(0,len(lista)-1) :
         elem = lista[i]
-        print elem
+        #print elem
         for j in range(i+1,len(lista)):
             elem1 = lista[j]
-            print elem1
+            #print elem1
             aux = join(elem,elem1)
             if aux != 0:
                 if not hasInList(Cn,aux):
@@ -21,30 +21,43 @@ def makeJoins(lista):
 
 def join(elem,elem1) :
     listTemp = list()
+    if len(elem) != 1:
+        tam = len(elem) - 1
+        #print "Tamanho %d", len(elem)
+        for i in range(0,len(elem)) :
+            #print elem[i]
+            listTemp.append(elem[i])
 
-    for i in range(0,len(elem)) :
-        print elem[i]
-        listTemp.append(elem[i])
+        achou_comum = False
 
-    achou_comum = False
+        aux = list()
+        countEqual = 0
+        for i in range(0,len(elem1)) :
+            #print elem1[i]
+            if not hasElemIn(elem1[i],elem):
+                aux.append(elem1[i])
+               # print aux
+            else :
+                achou_comum = True
+                countEqual = countEqual + 1
+                #print "Entrou aqui"
 
-    aux = list()
-
-    for i in range(0,len(elem1)) :
-        print elem1[i]
-        if not hasElemIn(elem1[i],elem):
-            aux.append(elem1[i])
-            print aux
-        else :
-            achou_comum = True
-            print "Entrou aqui"
-
-    if achou_comum:
-        print "Entrou aqui"
-        for item in aux:
+        if achou_comum and countEqual >= tam:
+            #print "Entrou aqui"
+            for item in aux:
+                listTemp.append(item)
+                listTemp.sort()
+            #print listTemp
+            return listTemp
+    else :
+        for item in elem:
             listTemp.append(item)
-        print listTemp
-        return listTemp
+        for item in elem1:
+            listTemp.append(item)
+        listTemp.sort()
+        if elem != elem1:
+            return listTemp
+
     return 0
 
 
@@ -66,8 +79,39 @@ def same(item,aux):
             return False
     return True
 
-C1 = makeJoins([[1,2],[1,3],[5,4],[2,3]])
+def printList(lista):
+    for element in lista:
+        print "\t",element
+
+C1 = makeJoins([["Agua"],
+                ["Pao"],
+                ["Cerveja"],
+                ["Cebola"],
+                ["Maca"]])
+
+C2 = makeJoins(C1)
+
+C3 = makeJoins(C2)
+
+C4 = makeJoins(C3)
+
+print "With 2"
+print ""
+printList(C1)
+print ""
+
+print "With 3"
+print ""
+printList(C2)
+print ""
+
+print "With 4"
+print ""
+printList(C3)
+print ""
 
 
-print(C1)
+print "With 5"
+print ""
+printList(C4)
 
