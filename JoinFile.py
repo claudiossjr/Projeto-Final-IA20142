@@ -36,3 +36,6 @@ def join(elem,elem1) :
     if achou_comum:
         listTemp.append(aux)
     return 0
+
+
+C1 = makeJoins([1,2,3,4,5])

@@ -5,10 +5,17 @@ __author__ = 'joaolucas'
 
 import MySQLdb
 
-numberOfRows = 0
+numberOfTransactions = 0
 suport = 0.4
+transactions = -1
+cursor = -1
 
 def dbConnection():
+
+    #connect to DB
+
+    global cursor
+
     print "Insert hostname"
     host = "localhost"#raw_input()
     print "Insert Username"
@@ -20,10 +27,14 @@ def dbConnection():
 
     db = MySQLdb.connect(host, username, password, database)
     cursor = db.cursor()
-    checkTransactions(cursor)
 
 
-def checkTransactions(cursor):
+def checkTransactions():
+
+    #check transactions made for each client
+
+    global cursor
+    global transactions
 
     cursor.execute("SELECT COUNT(DISTINCT idCliente) FROM Compra")
     numberOfTransactions = int(cursor.fetchone()[0])
@@ -40,10 +51,16 @@ def checkTransactions(cursor):
     for item in transactions:
         print item
 
+def buildC1():
 
-    buildC1(transactions, cursor)
+    global transactions
 
-def buildC1(transactions, cursor):
+
+
+
+    transactions = map(set, transactions)
+
+
 
     C1 = {}
 
@@ -57,20 +74,59 @@ def buildC1(transactions, cursor):
     for item in C1:
         print " Item: %s Quantidade %s " % (item ,C1[item])
 
-    L1 = {}
+    LAUX = {}
 
     for item in C1:
         if (float(C1[item]) / float(len(transactions))) > suport:
-            L1[item] = C1[item]
+            LAUX[item] = C1[item]
             cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" % (item) )
             productName = cursor.fetchall()
 
             for aux in productName:
                 print "%s -----> Suporte: %s " % (aux[0], float(C1[item]) / float(len(transactions)))
 
-    joinOperation(L1,transactions)
 
-def joinOperation(L1,transactions):
+    L1 = [0 for i in range(len(LAUX))]
+
+
+    i = 0
+    for item in LAUX:
+        L1[i] = item
+        i = i+1
+
+
+
+    return L1,LAUX
+
+
+
+    #joinOperation(L1,transactions)
+
+
+def apriori():
+
+    global transactions
+
+    dbConnection()
+    checkTransactions()
+    L1,LAUX =buildC1()
+
+    for item in L1:
+        LN = [L1]
+
+    LN = map(set, LN)
+
+    for item in LN:
+        print item
+
+def newJoinOperation(L):
+
+    resultList = []
+
+    for
+
+
+def joinOperation(LK,transactions):
 
     LK = {}
 
@@ -111,4 +167,4 @@ def checkSubset(transactions, tupleList):
     print tupleList[0][0]
 
 
-dbConnection()
+apriori()
