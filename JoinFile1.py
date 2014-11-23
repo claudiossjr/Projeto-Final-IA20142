@@ -1,7 +1,7 @@
 
 __author__ = 'claudio'
 
-class Util(object):
+class Util:
 
     def __init__(self):
         '''Inicializa a classe'''
