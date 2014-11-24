@@ -9,7 +9,7 @@ from JoinFile1 import Util
 util = Util()
 
 numberOfTransactions = 0
-suport = 0.3
+suport = 0.36
 transactions = -1
 cursor = -1
 
@@ -78,6 +78,7 @@ def buildC1():
         print " Item: %s Quantidade %s " % (item ,C1[item])
     '''
 
+
     L1 = {}
 
     for item in C1:
@@ -100,6 +101,7 @@ def buildC1():
         L1FINAL[i] = [item]
         i += 1
 
+
     return L1FINAL
 
 
@@ -115,7 +117,6 @@ def buildLK(LK):
     CK = map(set, CK)
 
     LK = {}
-
 
 
 
@@ -145,8 +146,21 @@ def buildLK(LK):
             LKFINAL.append(temp)
 
 
-
     return LKFINAL
+
+
+def generateConfidence(LK, k):
+
+
+    aux = list()
+
+    if k == 1:
+        return
+    else:
+        for i in range (len(LK)):
+            for i in range(1,k):
+                aux.append(LK[i])
+
 
 
 def nameGenerator(itemset):
@@ -169,14 +183,10 @@ def apriori():
     checkTransactions()
 
     LK = buildC1()
-    print "!!!!!!!!!!!!!!"
-    print LK
-
 
     while len(LK) > 1:
+        generateConfidence(LK, len(LK[0]))
         LK = buildLK(LK)
-        print "!!!!!!!!!!!"
-        print LK
 
 
 

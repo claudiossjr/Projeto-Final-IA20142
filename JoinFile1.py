@@ -87,7 +87,7 @@ class Util:
 
 util = Util()
 
-C1 = util.makeJoins([["Agua"],
+C1 = util.makeJoins([["Agua"],  
                 ["Pao"],
                 ["Cerveja"],
                 ["Cebola"],
