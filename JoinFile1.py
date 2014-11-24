@@ -85,6 +85,15 @@ class Util:
         for element in lista:
             print "\t",element
 
+class helpTools:
+
+    def __init__(self):
+        '''Init hepTool'''
+        self.rules = list()
+
+    def buildRules(self,lista):
+
+
 '''
 util = Util()
 
