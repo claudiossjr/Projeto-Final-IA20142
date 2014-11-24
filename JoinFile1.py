@@ -85,6 +85,81 @@ class Util:
         for element in lista:
             print "\t",element
 
+class HelpTools:
+
+    def __init__(self):
+        '''Init hepTool'''
+        self.rules = list()
+
+    def conjuntoDasPartes(self,lista):
+        if len(lista) > 1:
+           return self.geraConjunto(lista)
+        return lista
+
+    def geraConjunto(self,lista):
+        rules = list()
+        tam = (1 << (len(lista))) - 1
+        #print tam
+        for i in range(1,tam):
+            conj = []
+            bin = self.intToListBin(i,len(lista))
+            #print bin
+            for j in range(0,len(bin)):
+                if bin[j] == 1:
+                    conj.append(lista[j])
+
+
+            complemento = self.geraComplemento(lista,conj)
+            #print conj," ",complemento
+
+            aux = list()
+            aux.append(conj)
+            aux.append(complemento)
+            rules.append(aux)
+
+        return rules
+
+
+    def geraComplemento(self,lista,listaElem):
+        temp = list()
+
+        for elem in lista:
+            esta = False
+            for j in listaElem:
+                if elem == j:
+                    esta = True
+                    break;
+
+            if not esta:
+                temp.append(elem)
+
+        return temp
+
+    def hasElem(self,lista,Elem):
+        for i in lista:
+            if i == Elem:
+                return True
+        return False
+
+    def intToListBin(self,inteiro,tamBit):
+        aux = list()
+        temp = inteiro
+        for i in range(0,tamBit):
+            if (temp & 1) == 1:
+                aux.append(1)
+            else :
+                aux.append(0)
+            temp = temp >> 1
+        #aux.reverse()
+        return aux
+
+''' Uso da Classe HelpTool
+help = HelpTools()
+for rule in help.conjuntoDasPartes([1,2,3,4,5,6]):
+    print rule[0], " --> ",rule[1]
+'''
+
+''' Uso da Classe Util
 util = Util()
 
 C1 = util.makeJoins([["Agua"],  
@@ -117,3 +192,4 @@ print ""
 print "With 5"
 print ""
 util.printList(C4)
+'''
