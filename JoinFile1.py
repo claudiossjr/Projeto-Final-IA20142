@@ -91,7 +91,7 @@ class helpTools:
         '''Init hepTool'''
         self.rules = list()
 
-    def buildRules(self,lista):
+    
 
 
 '''
