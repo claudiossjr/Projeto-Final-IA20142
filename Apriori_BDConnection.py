@@ -5,11 +5,14 @@ __author__ = 'joaolucas'
 
 import MySQLdb
 import ast
-from JoinFile1 import Util
+from JoinFile1 import Util,HelpTools
+
 util = Util()
 
+helptools = HelpTools()
+
 numberOfTransactions = 0
-suport = 0.36
+suport = 0.2
 transactions = -1
 cursor = -1
 
@@ -185,7 +188,15 @@ def apriori():
     LK = buildC1()
 
     while len(LK) > 1:
-        generateConfidence(LK, len(LK[0]))
+
+
+
+        for item in LK:
+            if len(item) > 1:
+                for rule in helptools.conjuntoDasPartes(item):
+                    print rule[0], " --> ",rule[1]
+
+
         LK = buildLK(LK)
 
 

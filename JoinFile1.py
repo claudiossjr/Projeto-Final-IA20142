@@ -153,13 +153,13 @@ class HelpTools:
         #aux.reverse()
         return aux
 
-''' Uso da Classe HelpTool
+'''
 help = HelpTools()
 for rule in help.conjuntoDasPartes([1,2,3,4,5,6]):
     print rule[0], " --> ",rule[1]
 '''
 
-''' Uso da Classe Util
+'''
 util = Util()
 
 C1 = util.makeJoins([["Agua"],  
