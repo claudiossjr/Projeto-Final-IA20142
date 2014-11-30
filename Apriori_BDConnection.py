@@ -195,7 +195,7 @@ def ruleToName(rule0, rule1):
         temp = cursor.fetchone()
         fim1 = fim1 + " "+temp[0]
 
-    print fim0 + "------>"+ fim1
+    print fim0 + " ------> "+ fim1
 
 
 
@@ -220,9 +220,9 @@ def apriori():
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
-                    print helptools.unionSet(rule[0],rule[1])
-                    print rule[0], " --> ",rule[1]
-
+                    #print helptools.unionSet(rule[0],rule[1])
+                    #print rule[0], " --> ",rule[1]
+                    ruleToName(rule[0],rule[1])
 
 
         LK = buildLK(LK)
