@@ -12,7 +12,7 @@ util = Util()
 helptools = HelpTools()
 
 numberOfTransactions = 0
-suport = 0.2
+suport = 0.3
 transactions = -1
 cursor = -1
 
@@ -178,9 +178,35 @@ def nameGenerator(itemset):
 
 
 
+def ruleToName(rule0, rule1):
+
+
+
+    fim0 = ""
+    for item in rule0:
+        sql = cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
+        temp = cursor.fetchone()
+        fim0 = fim0 + " "+temp[0]
+
+
+    fim1 = ""
+    for item in rule1:
+        sql = cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
+        temp = cursor.fetchone()
+        fim1 = fim1 + " "+temp[0]
+
+    print fim0 + "------>"+ fim1
+
+
+
+
+
+
+
 def apriori():
 
     global transactions
+    global cursor
 
     dbConnection()
     checkTransactions()
@@ -194,7 +220,7 @@ def apriori():
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
-                    print rule[0], " --> ",rule[1]
+                    ruleToName(rule[0],rule[1])
 
 
         LK = buildLK(LK)
