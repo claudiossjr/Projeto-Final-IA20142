@@ -197,18 +197,37 @@ def ruleToName(rule0, rule1):
 
     print fim0 + "------>"+ fim1
 
+def suportCalculator(baselist):
+
+
+
+
+    baseset = map(set, [baselist])
+
+
+    numberOfOccurrences = 0.0
+    for transaction in transactions:
+        if baseset[0].issubset(transaction):
+            numberOfOccurrences += 1
+
+    return numberOfOccurrences/float(len(transaction))
+
+
+
+
+
 
 def confidence(rule0, rule1):
 
-    global transactions
 
-    rule0set = map(set, [rule0])
-    rule1set = map(set, [rule1])
+    unionset = helptools.unionSet(rule0,rule1)
 
-    #resultset = rule0set.
+    uniosetsuport = suportCalculator(unionset)
 
-    #for item in transactions:
+    rule0suport = suportCalculator(rule0)
 
+
+    return uniosetsuport/rule0suport
 
 
 
@@ -231,9 +250,14 @@ def apriori():
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
+                    confianca = confidence(rule[0], rule[1])
 
-                    ruleToName(rule[0],rule[1])
-                    confidence(rule[0], rule[1])
+                    if confianca > 0.7:
+                        ruleToName(rule[0],rule[1])
+                        print "Confianca --------> " ,confianca
+
+
+
 
 
 
