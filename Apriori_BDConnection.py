@@ -178,24 +178,18 @@ def nameGenerator(itemset):
 
 
 
-def ruleToName(rule0, rule1):
+def ruleToName(rule):
+    listTemp = list()
 
-
-
-    fim0 = ""
-    for item in rule0:
+    for item in rule:
         sql = cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
         temp = cursor.fetchone()
-        fim0 = fim0 + " "+temp[0]
+
+        listTemp.append(temp[0])
+
+    return listTemp
 
 
-    fim1 = ""
-    for item in rule1:
-        sql = cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
-        temp = cursor.fetchone()
-        fim1 = fim1 + " "+temp[0]
-
-    print fim0 + " ------> "+ fim1
 
 
 def confidence(rule0, rule1):
@@ -231,7 +225,7 @@ def apriori():
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
-                    ruleToName(rule[0],rule[1])
+                    print ruleToName(rule[0])," -> ",ruleToName(rule[1])
                     confidence(rule[0], rule[1])
 
 
