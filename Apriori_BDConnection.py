@@ -198,6 +198,17 @@ def ruleToName(rule0, rule1):
     print fim0 + " ------> "+ fim1
 
 
+def confidence(rule0, rule1):
+
+    global transactions
+
+    rule0set = map(set, [rule0])
+    rule1set = map(set, [rule1])
+
+    #resultset = rule0set.
+
+    #for item in transactions:
+
 
 
 
@@ -220,9 +231,9 @@ def apriori():
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
-                    #print helptools.unionSet(rule[0],rule[1])
-                    #print rule[0], " --> ",rule[1]
                     ruleToName(rule[0],rule[1])
+                    confidence(rule[0], rule[1])
+
 
 
         LK = buildLK(LK)
