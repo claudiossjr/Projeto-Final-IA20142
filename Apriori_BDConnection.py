@@ -57,11 +57,20 @@ def checkTransactions():
     # print de cada transacao
     print "TRANSACTIONS"
     for item in transactions:
-        print item
+        transactionsToName(item)
 
 
     transactions = map(set, transactions)
 
+def transactionsToName(transaction):
+
+    global cursor
+    transacationname = ""
+    for item in transaction:
+        cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
+        temp = cursor.fetchone()
+        transacationname = transacationname +  temp[0]+"    "
+    print "[" + transacationname + "]"
 
 def buildC1():
 
