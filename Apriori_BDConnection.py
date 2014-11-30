@@ -178,9 +178,35 @@ def nameGenerator(itemset):
 
 
 
+def ruleToName(rule0, rule1):
+
+
+
+    fim0 = ""
+    for item in rule0:
+        sql = cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
+        temp = cursor.fetchone()
+        fim0 = fim0 + " "+temp[0]
+
+
+    fim1 = ""
+    for item in rule1:
+        sql = cursor.execute("SELECT nome FROM Produtos WHERE idProdutos = %s" %(item))
+        temp = cursor.fetchone()
+        fim1 = fim1 + " "+temp[0]
+
+    print fim0 + "------>"+ fim1
+
+
+
+
+
+
+
 def apriori():
 
     global transactions
+    global cursor
 
     dbConnection()
     checkTransactions()
@@ -196,6 +222,7 @@ def apriori():
                 for rule in helptools.conjuntoDasPartes(item):
                     print helptools.unionSet(rule[0],rule[1])
                     print rule[0], " --> ",rule[1]
+
 
 
         LK = buildLK(LK)
