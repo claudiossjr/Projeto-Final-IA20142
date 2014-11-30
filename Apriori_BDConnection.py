@@ -231,8 +231,10 @@ def apriori():
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
+
                     ruleToName(rule[0],rule[1])
                     confidence(rule[0], rule[1])
+
 
 
         LK = buildLK(LK)

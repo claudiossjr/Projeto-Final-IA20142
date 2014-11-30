@@ -153,6 +153,23 @@ class HelpTools:
         #aux.reverse()
         return aux
 
+    def unionSet(self,listA,listB):
+        '''Make Union between two lists'''
+        listTemp = list()
+        for elem in listA:
+            listTemp.append(elem)
+        for elem in listB:
+            listTemp.append(elem)
+        listTemp.sort()
+        return listTemp
+
+'''
+help = HelpTools()
+for rule in help.conjuntoDasPartes([1,2,3]):
+    print rule[0], " --> ",rule[1]
+    print help.unionSet(rule[0],rule[1])
+'''
+
 '''
 help = HelpTools()
 for rule in help.conjuntoDasPartes([1,2,3,4,5,6]):
