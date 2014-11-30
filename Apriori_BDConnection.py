@@ -12,7 +12,7 @@ util = Util()
 helptools = HelpTools()
 
 numberOfTransactions = 0
-suport = 0.2
+suport = 0.3
 transactions = -1
 cursor = -1
 
@@ -194,6 +194,7 @@ def apriori():
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
+                    print helptools.unionSet(rule[0],rule[1])
                     print rule[0], " --> ",rule[1]
 
 
