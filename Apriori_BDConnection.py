@@ -13,6 +13,7 @@ helptools = HelpTools()
 
 numberOfTransactions = 0
 suport = 0.01
+confiancas = 0.05
 transactions = -1
 cursor = -1
 
@@ -76,6 +77,11 @@ def checkTransactions():
     for tuple in auxtransactions:
         transactions[int(tuple[1])].append(int(tuple[0]))
 
+    temp = list()
+    for i in range(100):
+        temp.append(transactions[i])
+    transactions = temp
+    #print transactions
 
     '''# print de cada transacao
     print "TRANSACTIONS"
@@ -158,8 +164,6 @@ def buildLK(LK):
         LK[str(temp[0])] = 0
 
     for itemset in CK:
-        print itemset
-        print itemset
         for transaction in transactions:
             if itemset.issubset(transaction):
                 temp = map(list,[itemset])
@@ -250,8 +254,6 @@ def confidence(rule0, rule1):
 
     rule0suport = suportCalculator(rule0)
 
-    print rule0," -> ",rule1,"  ",uniosetsuport/rule0suport
-
     return uniosetsuport/rule0suport
 
 
@@ -274,7 +276,7 @@ def apriori():
                 for rule in helptools.conjuntoDasPartes(item):
                     confianca = confidence(rule[0], rule[1])
 
-                    if confianca > 0:
+                    if confianca > 0.5:
                         print nameGenerator(rule[0])," -> ",nameGenerator(rule[1]), " --  confianca -> ",confianca
         LK = buildLK(LK)
 
