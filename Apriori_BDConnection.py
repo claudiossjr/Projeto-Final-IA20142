@@ -12,7 +12,7 @@ util = Util()
 helptools = HelpTools()
 
 numberOfTransactions = 0
-suport = 0.3
+suport = 0.01
 transactions = -1
 cursor = -1
 
@@ -25,14 +25,36 @@ def dbConnection():
     #print "Insert hostname"
     host = "localhost"#raw_input()
     #print "Insert Username"
-    username = "joao" #raw_input()
+    username = "root" #raw_input()
     #print "Insert your password"
-    password = "1234" #raw_input()
+    password = "423123" #raw_input()
     #print "Insert Database"
     database = "teste" #raw_input()
 
     db = MySQLdb.connect(host, username, password, database)
     cursor = db.cursor()
+
+'''
+def transanctionsFromSakila():
+
+    global cursor
+
+    cursor.execute("Select rental.rental_id, inventory.inventory_id ,film.title from film inner join inventory on film.film_id = inventory.film_id inner join rental on rental.inventory_id = inventory.inventory_id")
+
+
+    transacoes = cursor.fetchall()
+    globalList = list()
+    for transacao in transacoes:
+        temp = list()
+        print transacao
+        temp.append(transacao[0])
+        temp.append(transacao[1])
+        temp.append(transacao[2])
+        globalList.append(temp)
+    print globalList
+
+'''
+
 
 
 def checkTransactions():
@@ -44,21 +66,22 @@ def checkTransactions():
 
     cursor.execute("SELECT COUNT(DISTINCT idCliente) FROM Compra")
     numberOfTransactions = int(cursor.fetchone()[0])
+    #print numberOfTransactions
 
-    transactions = [[] for i in range(numberOfTransactions)]
+    transactions = [[] for i in range(1010)]
 
     cursor.execute("SELECT * FROM Compra")
     auxtransactions = cursor.fetchall()
 
     for tuple in auxtransactions:
-       transactions[int(tuple[1])-1].append(int(tuple[0]))
+        transactions[int(tuple[1])].append(int(tuple[0]))
 
 
-    # print de cada transacao
+    '''# print de cada transacao
     print "TRANSACTIONS"
     for item in transactions:
         transactionsToName(item)
-
+    '''
 
     transactions = map(set, transactions)
 
@@ -104,16 +127,12 @@ def buildC1():
 
             print "%s -----> Suporte: %s " % (productName[0][0], float(C1[item]) / float(len(transactions)))
 
-
     L1FINAL = [0 for i in range(len(L1))]
-
 
     i = 0
     for item in L1:
         L1FINAL[i] = [item]
         i += 1
-
-
     return L1FINAL
 
 
@@ -138,8 +157,9 @@ def buildLK(LK):
         temp = ast.literal_eval(aux)
         LK[str(temp[0])] = 0
 
-
     for itemset in CK:
+        print itemset
+        print itemset
         for transaction in transactions:
             if itemset.issubset(transaction):
                 temp = map(list,[itemset])
@@ -156,7 +176,6 @@ def buildLK(LK):
             print "[%s]  ------->   Suporte: %s " %(nameGenerator(temp), (float(LK[item])/float(len(transactions))))
 
             LKFINAL.append(temp)
-
 
     return LKFINAL
 
@@ -231,6 +250,7 @@ def confidence(rule0, rule1):
 
     rule0suport = suportCalculator(rule0)
 
+    print rule0," -> ",rule1,"  ",uniosetsuport/rule0suport
 
     return uniosetsuport/rule0suport
 
@@ -249,24 +269,17 @@ def apriori():
     LK = buildC1()
 
     while len(LK) > 1:
-
-
-
         for item in LK:
             if len(item) > 1:
                 for rule in helptools.conjuntoDasPartes(item):
                     confianca = confidence(rule[0], rule[1])
 
-                    if confianca > 0.7:
+                    if confianca > 0:
                         print nameGenerator(rule[0])," -> ",nameGenerator(rule[1]), " --  confianca -> ",confianca
-
-
-
-
-
         LK = buildLK(LK)
 
 
 
-
 apriori()
+#dbConnection()
+#transanctionsFromSakila()

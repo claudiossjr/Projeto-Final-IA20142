@@ -10,7 +10,7 @@ class Util:
     def makeJoins(self,lista):
         Cn = list()
         #print lista
-        for i in range(0,len(lista)-1) :
+        for i in range(0,len(lista)-1):
             elem = lista[i]
             #print elem
             for j in range(i+1,len(lista)):
@@ -77,7 +77,7 @@ class Util:
 
     def same(self,item,aux):
         for i in range(0,len(item)):
-            if item[i] != aux[i] :
+            if item[i] != aux[i]:
                 return False
         return True
 
