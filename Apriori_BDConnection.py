@@ -78,7 +78,7 @@ def checkTransactions():
         transactions[int(tuple[1])].append(int(tuple[0]))
 
     temp = list()
-    for i in range(100):
+    for i in range(350):
         temp.append(transactions[i])
     transactions = temp
     #print transactions
@@ -276,7 +276,7 @@ def apriori():
                 for rule in helptools.conjuntoDasPartes(item):
                     confianca = confidence(rule[0], rule[1])
 
-                    if confianca > 0.5:
+                    if confianca > 0.3:
                         print nameGenerator(rule[0])," -> ",nameGenerator(rule[1]), " --  confianca -> ",confianca
         LK = buildLK(LK)
 
